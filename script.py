@@ -15,7 +15,7 @@ driver = webdriver.Chrome(options=chrome_options)
 dayLastOrdered = ''
 while True:
     now = datetime.datetime.now()
-    driver.get("https://www.nba.com/celtics/schedule")
+    driver.get("https://www.nba.com/" + credentials.favoriteTeam + "/schedule")
     while True:
         day = now.strftime("%d")
         if (int(day) < 10):
@@ -27,11 +27,20 @@ while True:
                     "div[data-shortdate='" + currentDate + "'").get_attribute('data-tv')
                 pizzaShouldBeOrdered = (("ESPN" in tvProvs) or (
                     "ABC" in tvProvs) or ("TNT" in tvProvs))
-                timeOfGamehelper = driver.find_element_by_css_selector(
-                    "div[data-shortdate='" + currentDate + "'").get_attribute('data-time')
-                timeOfGame = (str(timeOfGamehelper)[:timeOfGamehelper.find(':')])
-                print(timeOfGame)
+                
                 if (pizzaShouldBeOrdered):
+                    timeOfGamehelper = driver.find_element_by_css_selector(
+                    "div[data-shortdate='" + currentDate + "'").get_attribute('data-time')
+                    # assume game is in the evening
+                    indexOfTimeSeperator = timeOfGamehelper.find(':')
+                    timeOfGame = int(
+                        (str(timeOfGamehelper)[:indexOfTimeSeperator])) + 12
+                    if(str(timeOfGamehelper)[indexOfTimeSeperator + 1:] != '00'):
+                        timeOfGame += int(str(timeOfGamehelper)
+                                        [indexOfTimeSeperator + 1:]) / 60
+                    currentHour = int(now.hour) + int(now.minute) / 60
+                    #time until game in hours used to decide whether to order yet
+                    timeUntilGame = timeOfGame - currentHour
                     customer = Customer(credentials.credentials['firstName'], credentials.credentials['lastName'],
                                         credentials.credentials['email'], credentials.credentials['phone'])
                     address = Address(credentials.credentials['addressLine'], credentials.credentials['city'],
@@ -44,11 +53,14 @@ while True:
                         credentials.card['number'], credentials.card['expiration'], credentials.card['cvv'], credentials.card['zip'])
                     orderText = order.pay_with(card)
                     timeEstimate = (orderText['Order']['EstimatedWaitMinutes'])
-                    minutesLeft = (str(timeEstimate)[timeEstimate.find('-') + 1:])
-                    print('You paid $',
-                          orderText['Order']['Amounts']['Payment'])
-                    dayLastOrdered = currentDate
-                    
+                    hoursLeft = int((str(timeEstimate)[
+                                   timeEstimate.find('-') + 1:])) / 60
+                    if(timeUntilGame < hoursLeft):
+                        #place the order if it is the right time
+                        order.place(card)
+                        print('You paid $',
+                            orderText['Order']['Amounts']['Payment'])
+                        dayLastOrdered = currentDate
                 else:
                     print('no game today.')
             except:
@@ -57,7 +69,3 @@ while True:
     # refresh calendar data every 1 hour just in case games switch up
     time.sleep(3600)
 
-# driver.close()
-# a = datetime.datetime.now().hour
-# print(a) 
-#only order if a is equal to gametime - 1

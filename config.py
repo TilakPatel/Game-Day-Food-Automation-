@@ -1,3 +1,4 @@
-credentials = {'firstName': 'Tilak', 'lastName': 'Patel', 'phone': '6038888357', 'email': 'ptilak142@gmail.com', 'addressLine': '69 Hawthorne Village Rd.', 'city': 'Nashua', 'state': 'NH', 'zip': '03062'}
-items = ['B8PCPT', '12SCREEN'] #bread sticks and med pizza
+credentials = {'firstName': 'Denzel', 'lastName': 'Washington', 'phone': '8337283933', 'email': 'denzel@yahoo.com', 'addressLine': '69 Flower Ln.', 'city': 'Los Angeles', 'state': 'CA', 'zip': '12345'}
+items = ['B8PCPT', '12SCREEN'] #bread sticks and med pizza CHANGE THESE 
 card = {'number': '4100123422343234', 'expiration': '0115', 'cvv': '0115', 'zip': '90210'}
+favoriteTeam = 'celtics' #your favorite team IN ALL LOWERCASE go celtics
