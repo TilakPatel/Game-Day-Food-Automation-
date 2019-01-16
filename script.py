@@ -1,6 +1,7 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from pizzapi.pizzapi import *
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
+# from pizzapi.pizzapi import *
+import config as credentials
 import datetime
 import time
 # now = datetime.datetime.now()
@@ -44,10 +45,11 @@ import time
 
 
 # # driver.close()
-customer = Customer('Donald', 'Trump',
-                    'donald@whitehouse.gov', '2024561111')
-address = Address('700 Pennsylvania Avenue NW', 'Washington', 'DC', '20408')
-store = address.closest_store()
-menu = store.get_menu()
-menu.search(Name='Coke')
-print(customer)
+# customer = Customer('Tilak', 'Patel',
+#                     'donald@whitehouse.gov', '2024561111')
+# address = Address('700 Pennsylvania Avenue NW', 'Washington', 'DC', '20408')
+# store = address.closest_store()
+# menu = store.get_menu()
+# menu.search(Name='Coke')
+# print(customer)
+print(credentials.credentials['city'])
