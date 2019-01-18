@@ -65,7 +65,7 @@ while True:
                     print('no game today.')
             except:
                 print('No game today.')
-        time.sleep(10800)  # repeats every 3 hours
+        time.sleep(900)  # repeats every 15 mins
     # refresh calendar data every 1 hour just in case games switch up
     time.sleep(3600)
 
