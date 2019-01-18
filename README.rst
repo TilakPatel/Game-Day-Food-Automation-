@@ -2,7 +2,9 @@
 Game Day Food Orderer
 =====================
 Small little Python script to automatically order pizza on days there is a nationally televised basketball game (one on ESPN, TNT, or ABC).
-Medium article: 
+Medium article 
+
+
 =====================
 Getting started
 =====================
