@@ -12,6 +12,4 @@ Getting started
 - Set up the config.py file with the appropriate information
 - Run the MAIN.py file for eternity. It loops every couple of hours so extensive CPU usage should not be a huge problem.
 
-==================
-FEEL FREE TO FORK
-==================
+# Written in Python
